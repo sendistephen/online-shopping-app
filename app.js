@@ -1,6 +1,8 @@
 const express = require('express');
-
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
+
 require('dotenv').config();
 
 const app = express();
@@ -10,13 +12,16 @@ mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
     useCreateIndex: true,
+    useUnifiedTopology: true,
   })
   .then(() => console.log('Database connection successfull!'));
 
-// home route
-app.get('/', (req, res) => {
-  res.send('Welcome to Online Shopping App');
-});
+// middleware
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(cookieParser());
+
+app.use('/api/v1/', require('./routes/user'));
 
 const port = process.env.PORT;
 app.listen(port, () => {
