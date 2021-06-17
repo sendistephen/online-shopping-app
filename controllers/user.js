@@ -12,5 +12,3 @@ exports.getUserById = (req, res, next, id) => {
     next();
   });
 };
-
-
