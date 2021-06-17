@@ -44,6 +44,13 @@ exports.signin = (req, res) => {
   });
 };
 
+// signout
+exports.signout = (req, res) => {
+  // clear the cookie from the response we created on signin req
+  res.clearCookie('t');
+  res.json({ message: 'Signout successfull!' });
+};
+
 // authenticated
 exports.isAuthenticated = expressJWT({
   secret: process.env.JWT_SECRET,
