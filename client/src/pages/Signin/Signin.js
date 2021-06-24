@@ -1,4 +1,4 @@
-import { signin } from 'auth';
+import { signin, authenticate } from 'auth';
 import { Layout } from 'components';
 import { Redirect } from 'react-router-dom';
 
@@ -23,10 +23,11 @@ const Signin = () => {
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
       } else {
-        setValues({
-          ...values,
-          redirectToReferrer: true,
-          loading: false,
+        authenticate(data, () => {
+          setValues({
+            ...values,
+            redirectToReferrer: true,
+          });
         });
       }
     });
