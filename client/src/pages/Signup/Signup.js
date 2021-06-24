@@ -10,12 +10,30 @@ function Signup() {
     error: '',
     success: '',
   });
+  const { name, email, password } = values;
+
   const handleChange = (name) => (e) => {
     setValues({ ...values, error: false, [name]: e.target.value });
   };
+  const signup = (user) => {
+    fetch(`${API}/signup`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    signup({ name, email, password });
+  };
 
   const signupForm = () => (
-    <form>
+    <form onSubmit={handleSubmit}>
       <div className='form-group'>
         <label htmlFor='name' className='text-muted'>
           Name
