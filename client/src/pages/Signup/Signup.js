@@ -1,5 +1,5 @@
+import { signup } from 'auth';
 import { Layout } from 'components';
-import { API } from 'config';
 import React, { useState } from 'react';
 
 function Signup() {
@@ -10,26 +10,28 @@ function Signup() {
     error: '',
     success: '',
   });
-  const { name, email, password } = values;
+  const { name, email, password, error, success } = values;
 
   const handleChange = (name) => (e) => {
     setValues({ ...values, error: false, [name]: e.target.value });
   };
-  const signup = (user) => {
-    fetch(`${API}/signup`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    })
-      .then((res) => res.json())
-      .catch((err) => console.log(err));
-  };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    signup({ name, email, password });
+    signup({ name, email, password }).then((data) => {
+      if (data.error) {
+        setValues({ ...values, error: data.error, success: false });
+      } else {
+        setValues({
+          ...values,
+          name: '',
+          email: '',
+          password: '',
+          error: '',
+          success: true,
+        });
+      }
+    });
   };
 
   const signupForm = () => (
@@ -40,6 +42,7 @@ function Signup() {
         </label>
         <input
           onChange={handleChange('name')}
+          value={name}
           type='text'
           className='form-control'
         />
@@ -50,6 +53,7 @@ function Signup() {
         </label>
         <input
           onChange={handleChange('email')}
+          value={email}
           type='email'
           className='form-control'
         />
@@ -60,6 +64,7 @@ function Signup() {
         </label>
         <input
           onChange={handleChange('password')}
+          value={password}
           type='password'
           className='form-control'
         />
@@ -67,12 +72,30 @@ function Signup() {
       <button className='btn btn-primary mt-3'>Sign up</button>
     </form>
   );
+  const showError = () => (
+    <div
+      className='alert alert-danger'
+      style={{ display: error ? '' : 'none' }}
+    >
+      {error}
+    </div>
+  );
+  const showSuccess = () => (
+    <div
+      className='alert alert-success'
+      style={{ display: success ? '' : 'none' }}
+    >
+      Congrats! New Account is created. Please signin.
+    </div>
+  );
   return (
     <Layout
       title='Signup'
       description='Register for an account to get started'
       className='container col-md-4 offset-md-4'
     >
+      {showError()}
+      {showSuccess()}
       {signupForm()}
     </Layout>
   );
