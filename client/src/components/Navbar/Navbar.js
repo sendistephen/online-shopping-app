@@ -1,4 +1,4 @@
-import { signout } from 'auth';
+import { isAuthenticated, signout } from 'auth';
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { isActive } from 'utils';
@@ -34,33 +34,41 @@ function Navbar({ history }) {
               </Link>
             </li>
 
-            <li className='nav-item'>
-              <Link
-                className='nav-link'
-                to='/signup'
-                style={isActive(history, '/signup')}
-              >
-                Sign up
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <Link
-                className='nav-link'
-                to='/signin'
-                style={isActive(history, '/signin')}
-              >
-                Sign in
-              </Link>
-            </li>
-            <li className='nav-item'>
-              <span
-                className='nav-link'
-                style={{ cursor: 'pointer', color: '#fff' }}
-                onClick={() => signout(() => history.push('/'))}
-              >
-                Sign out
-              </span>
-            </li>
+            {!isAuthenticated() && (
+              <>
+                <li className='nav-item'>
+                  <Link
+                    className='nav-link'
+                    to='/signup'
+                    style={isActive(history, '/signup')}
+                  >
+                    Sign up
+                  </Link>
+                </li>
+                <li className='nav-item'>
+                  <Link
+                    className='nav-link'
+                    to='/signin'
+                    style={isActive(history, '/signin')}
+                  >
+                    Sign in
+                  </Link>
+                </li>
+              </>
+            )}
+            {isAuthenticated() && (
+              <>
+                <li className='nav-item'>
+                  <span
+                    className='nav-link'
+                    style={{ cursor: 'pointer', color: '#fff' }}
+                    onClick={() => signout(() => history.push('/'))}
+                  >
+                    Sign out
+                  </span>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
