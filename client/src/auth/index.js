@@ -39,3 +39,33 @@ export const authenticate = (data, next) => {
     next();
   }
 };
+
+export const signout = async (next) => {
+  // remove token from LS
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('jwt');
+    next();
+    // make request to the api
+    try {
+      const res = await fetch(`${API}/signout`, {
+        method: 'GET',
+      });
+      if (res) {
+        console.log('Signout successfull!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+};
+
+export const isAuthenticated = () => {
+  if (typeof window == 'undefined') {
+    return false;
+  }
+  if (localStorage.getItem('jwt')) {
+    return JSON.parse(localStorage.getItem('jwt'));
+  } else {
+    return false;
+  }
+};
