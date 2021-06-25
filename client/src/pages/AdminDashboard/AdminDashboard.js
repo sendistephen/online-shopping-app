@@ -12,13 +12,13 @@ const AdminDashboard = () => {
       <h5 className='card-header'>Admin Links</h5>
       <ul className='list-group'>
         <li className='list-group-item'>
-          <Link className='nav-link' to='/cart'>
-            Cart
+          <Link className='nav-link' to='/create/category'>
+            Create Category
           </Link>
         </li>
         <li className='list-group-item'>
-          <Link className='nav-link' to='/profile/update'>
-            Update Profile
+          <Link className='nav-link' to='/create/product'>
+            Create Product
           </Link>
         </li>
       </ul>
