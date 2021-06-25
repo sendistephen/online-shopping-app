@@ -34,6 +34,16 @@ function Navbar({ history }) {
               </Link>
             </li>
 
+            <li className='nav-item'>
+              <Link
+                className='nav-link active'
+                aria-current='page'
+                to='/user/dashboard'
+                style={isActive(history, '/user/dashboard')}
+              >
+                Dashboard
+              </Link>
+            </li>
             {!isAuthenticated() && (
               <>
                 <li className='nav-item'>

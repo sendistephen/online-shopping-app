@@ -1,4 +1,4 @@
-import { signin, authenticate } from 'auth';
+import { signin, authenticate, isAuthenticated } from 'auth';
 import { Layout } from 'components';
 import { Redirect } from 'react-router-dom';
 
@@ -13,10 +13,11 @@ const Signin = () => {
     redirectToReferrer: false,
   });
   const { email, password, error, redirectToReferrer, loading } = values;
-
+  const { foundUser } = isAuthenticated();
   const handleChange = (name) => (e) => {
     setValues({ ...values, error: false, [name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     signin({ email, password, loading: true }).then((data) => {
@@ -80,7 +81,11 @@ const Signin = () => {
 
   const redirectUser = () => {
     if (redirectToReferrer) {
-      return <Redirect to='/' />;
+      if (foundUser && foundUser.role === 1) {
+        return <Redirect to='/admin/dashboard' />;
+      } else {
+        return <Redirect to='/user/dashboard' />;
+      }
     }
   };
 
