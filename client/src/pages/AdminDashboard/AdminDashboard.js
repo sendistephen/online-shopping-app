@@ -9,7 +9,7 @@ const AdminDashboard = () => {
 
   const adminLinks = () => (
     <div className='card'>
-      <h5 className='card-header'>User Links</h5>
+      <h5 className='card-header'>Admin Links</h5>
       <ul className='list-group'>
         <li className='list-group-item'>
           <Link className='nav-link' to='/cart'>
