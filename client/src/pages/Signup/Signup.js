@@ -1,6 +1,7 @@
-import { signup } from 'auth';
+import { isAuthenticated, signup } from 'auth';
 import { Layout } from 'components';
 import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 function Signup() {
   const [values, setValues] = useState({
@@ -15,7 +16,7 @@ function Signup() {
   const handleChange = (name) => (e) => {
     setValues({ ...values, error: false, [name]: e.target.value });
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     signup({ name, email, password }).then((data) => {
@@ -88,6 +89,11 @@ function Signup() {
       Congrats! New Account is created. Please signin.
     </div>
   );
+  const redirectUser = () => {
+    if (isAuthenticated()) {
+      return <Redirect to='/' />;
+    }
+  };
   return (
     <Layout
       title='Signup'
@@ -97,6 +103,7 @@ function Signup() {
       {showError()}
       {showSuccess()}
       {signupForm()}
+      {redirectUser()}
     </Layout>
   );
 }
