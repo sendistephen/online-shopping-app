@@ -15,7 +15,7 @@ const ProductSchema = new mongoose.Schema(
     category: { type: ObjectId, ref: 'Category', required: true },
     quantity: { type: Number },
     photo: {
-      type: Buffer,
+      data: Buffer,
       contentType: String,
     },
     shipping: {
