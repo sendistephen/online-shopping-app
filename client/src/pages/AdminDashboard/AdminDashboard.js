@@ -1,4 +1,4 @@
-import { isAuthenticated } from 'auth';
+import { isAuthenticated } from 'api/auth';
 import { Layout } from 'components';
 import { Link } from 'react-router-dom';
 
@@ -12,12 +12,12 @@ const AdminDashboard = () => {
       <h5 className='card-header'>Admin Links</h5>
       <ul className='list-group'>
         <li className='list-group-item'>
-          <Link className='nav-link' to='/create/category'>
+          <Link className='nav-link' to='/admin/category/create'>
             Create Category
           </Link>
         </li>
         <li className='list-group-item'>
-          <Link className='nav-link' to='/create/product'>
+          <Link className='nav-link' to='/admin/product/create'>
             Create Product
           </Link>
         </li>

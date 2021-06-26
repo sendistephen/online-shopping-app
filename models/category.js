@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const CategorySchema = new mongoose.Schema(
   {
-    name: { type: String, required: true, maxLength: 32 },
+    name: { type: String, unique: true, required: true, maxLength: 32 },
   },
   { timestamps: true }
 );
