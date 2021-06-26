@@ -21,7 +21,7 @@ router.delete(
   isAdmin,
   deleteProduct
 );
-router.post('/product/create/:userId', isAuthenticated, isAdmin, create);
+router.post('/products/create/:userId', isAuthenticated, isAdmin, create);
 
 router.param('userId', getUserById);
 router.param('productId', getProductById);
