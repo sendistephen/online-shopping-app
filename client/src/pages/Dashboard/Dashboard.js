@@ -1,4 +1,4 @@
-import { isAuthenticated } from 'auth';
+import { isAuthenticated } from 'api/auth';
 import { Layout } from 'components';
 import React from 'react';
 import { Link } from 'react-router-dom';

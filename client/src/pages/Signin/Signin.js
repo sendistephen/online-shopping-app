@@ -1,4 +1,4 @@
-import { signin, authenticate, isAuthenticated } from 'auth';
+import { signin, authenticate, isAuthenticated } from 'api/auth';
 import { Layout } from 'components';
 import { Redirect } from 'react-router-dom';
 

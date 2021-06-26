@@ -1,4 +1,4 @@
-import { isAuthenticated, signout } from 'auth';
+import { isAuthenticated, signout } from 'api/auth';
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { isActive } from 'utils';

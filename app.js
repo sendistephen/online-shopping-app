@@ -28,6 +28,7 @@ app.use(expressValidator());
 // routes
 app.use('/api/v1/', require('./routes/auth'));
 app.use('/api/v1/', require('./routes/user'));
+app.use('/api/v1/', require('./routes/category'));
 
 const port = process.env.PORT;
 app.listen(port, () => {
