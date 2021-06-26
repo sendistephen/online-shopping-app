@@ -6,11 +6,31 @@ const {
   isAuthorized,
 } = require('../controllers/auth');
 
-const { create } = require('../controllers/product');
+const {
+  create,
+  read,
+  getProductById,
+  deleteProduct,
+  updateProduct,
+} = require('../controllers/product');
 const { getUserById } = require('../controllers/user');
 
-router.post('/product/create/:userId', isAuthenticated, isAdmin, create);
+router.get('/products/:productId', read);
+router.delete(
+  '/products/:productId/:userId',
+  isAuthenticated,
+  isAdmin,
+  deleteProduct
+);
+router.patch(
+  '/products/:productId/:userId',
+  isAuthenticated,
+  isAdmin,
+  updateProduct
+);
+router.post('/products/create/:userId', isAuthenticated, isAdmin, create);
 
 router.param('userId', getUserById);
+router.param('productId', getProductById);
 
 module.exports = router;
