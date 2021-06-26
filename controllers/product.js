@@ -6,6 +6,17 @@ const _ = require('lodash');
 
 const Product = require('../models/product');
 
+exports.getProductById = (req, res, next, productId) => {
+  Product.findById(productId).exec((err, foundProduct) => {
+    if (err || !foundProduct) {
+      return res.status(400).json({ error: 'Product not found' });
+    }
+    // store product in req object
+    req.product = foundProduct;
+    next();
+  });
+};
+
 exports.create = (req, res) => {
   const form = new formidable.IncomingForm();
   form.keepExtensions = true;
