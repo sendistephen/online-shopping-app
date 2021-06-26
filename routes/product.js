@@ -6,10 +6,21 @@ const {
   isAuthorized,
 } = require('../controllers/auth');
 
-const { create, read, getProductById } = require('../controllers/product');
+const {
+  create,
+  read,
+  getProductById,
+  deleteProduct,
+} = require('../controllers/product');
 const { getUserById } = require('../controllers/user');
 
 router.get('/products/:productId', read);
+router.delete(
+  '/products/:productId/:userId',
+  isAuthenticated,
+  isAdmin,
+  deleteProduct
+);
 router.post('/product/create/:userId', isAuthenticated, isAdmin, create);
 
 router.param('userId', getUserById);
