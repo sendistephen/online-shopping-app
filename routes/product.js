@@ -11,6 +11,7 @@ const {
   read,
   getProductById,
   deleteProduct,
+  updateProduct,
 } = require('../controllers/product');
 const { getUserById } = require('../controllers/user');
 
@@ -20,6 +21,12 @@ router.delete(
   isAuthenticated,
   isAdmin,
   deleteProduct
+);
+router.patch(
+  '/products/:productId/:userId',
+  isAuthenticated,
+  isAdmin,
+  updateProduct
 );
 router.post('/products/create/:userId', isAuthenticated, isAdmin, create);
 

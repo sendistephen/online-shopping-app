@@ -68,3 +68,35 @@ exports.create = (req, res) => {
     });
   });
 };
+
+exports.updateProduct = (req, res) => {
+  const form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({ error: 'Image could not be uploaded' });
+    }
+
+    // update product
+    let product = req.product;
+    product.set(fields);
+
+    if (files.photo) {
+      // limit photo size
+      if (files.photo.size > 1000000) {
+        return res.json({
+          error: 'Image size should be less than 1mb in size',
+        });
+      }
+      // access file system
+      product.photo.data = fs.readFileSync(files.photo.path);
+      product.photo.contentType = files.photo.type;
+    }
+    product.save((err, result) => {
+      if (err) {
+        res.status({ error: errorHandler });
+      }
+      return res.json({ result });
+    });
+  });
+};
