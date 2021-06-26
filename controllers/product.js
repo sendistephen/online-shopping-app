@@ -17,6 +17,11 @@ exports.getProductById = (req, res, next, productId) => {
   });
 };
 
+exports.read = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
 exports.create = (req, res) => {
   const form = new formidable.IncomingForm();
   form.keepExtensions = true;

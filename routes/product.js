@@ -6,11 +6,13 @@ const {
   isAuthorized,
 } = require('../controllers/auth');
 
-const { create } = require('../controllers/product');
+const { create, read, getProductById } = require('../controllers/product');
 const { getUserById } = require('../controllers/user');
 
+router.get('/products/:productId', read);
 router.post('/product/create/:userId', isAuthenticated, isAdmin, create);
 
 router.param('userId', getUserById);
+router.param('productId', getProductById);
 
 module.exports = router;
