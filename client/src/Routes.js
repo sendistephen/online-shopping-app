@@ -2,6 +2,7 @@ import { AdminRoute, PrivateRoute } from 'components';
 import {
   AdminDashboard,
   CreateCategory,
+  CreateProduct,
   Dashboard,
   Home,
   Signin,
@@ -22,6 +23,11 @@ export const Routes = () => {
         exact
         path='/admin/category/create'
         component={CreateCategory}
+      />
+      <AdminRoute
+        exact
+        path='/admin/product/create'
+        component={CreateProduct}
       />
     </Switch>
   );

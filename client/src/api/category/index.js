@@ -11,7 +11,17 @@ export const createCategory = async (userId, token, category) => {
       },
       body: JSON.stringify(category),
     });
-    return await res.json();
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCategories = async () => {
+  try {
+    const res = await fetch(`${API}/categories`, { method: 'GET' });
+    return res.json();
   } catch (error) {
     console.log(error);
   }
