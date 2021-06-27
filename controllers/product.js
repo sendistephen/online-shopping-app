@@ -26,7 +26,7 @@ exports.deleteProduct = (req, res) => {
   const product = req.product;
   product.remove((err, deletedProduct) => {
     if (err) {
-      return res.status({ error: errorHandler });
+      return res.status(400).json({ error: errorHandler });
     }
     return res.json({
       message: 'Product deleted successfully!',
@@ -45,14 +45,14 @@ exports.create = (req, res) => {
     // check for all form fields
     const { name, description, price, category, quantity, shipping } = fields;
     if ((!name || !description || !price, !category, !quantity, !shipping)) {
-      return res.json({ error: 'All fields are required!' });
+      return res.status(400).json({ error: 'All fields are required!' });
     }
     // create new product
     let product = new Product(fields);
     if (files.photo) {
       // limit photo size
       if (files.photo.size > 1000000) {
-        return res.json({
+        return res.status(400).json({
           error: 'Image size should be less than 1mb in size',
         });
       }
@@ -62,7 +62,7 @@ exports.create = (req, res) => {
     }
     product.save((err, result) => {
       if (err) {
-        res.status({ error: errorHandler });
+        return res.status(400).json({ error: errorHandler });
       }
       return res.json({ result });
     });
@@ -84,7 +84,7 @@ exports.updateProduct = (req, res) => {
     if (files.photo) {
       // limit photo size
       if (files.photo.size > 1000000) {
-        return res.json({
+        return res.status(400).json({
           error: 'Image size should be less than 1mb in size',
         });
       }
@@ -94,7 +94,7 @@ exports.updateProduct = (req, res) => {
     }
     product.save((err, result) => {
       if (err) {
-        res.status({ error: errorHandler });
+        return res.status(400).json({ error: errorHandler });
       }
       return res.json({ result });
     });
