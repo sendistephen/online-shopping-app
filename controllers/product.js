@@ -129,7 +129,7 @@ exports.list = (req, res) => {
  *Products that have the same category will be returned
  *
  */
-exports.listRelated = (req, res, next) => {
+exports.listRelated = (req, res) => {
   const limit = req.query.limit ? parseInt(req.query.limit) : 6;
   // find all the products excluding itself
   Product.find({
@@ -144,6 +144,21 @@ exports.listRelated = (req, res, next) => {
       }
       return res.json(products);
     });
+};
+/**
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns all the categories based on products
+ */
+exports.listCategories = (req, res) => {
+  Product.distinct('category', {}, (err, categories) => {
+    console.log('categories')
+    // if (err) {
+    //   return res.status(400).json({ error: 'Categories not found' });
+    // }
+    return res.json(categories);
+  });
 };
 
 exports.photo = (req, res, next) => {
