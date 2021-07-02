@@ -14,6 +14,7 @@ const ProductSchema = new mongoose.Schema(
     price: { type: Number, trim: true, required: true, maxLength: 32 },
     category: { type: ObjectId, ref: 'Category', required: true },
     quantity: { type: Number },
+    sold: { type: Number, default: 0 },
     photo: {
       data: Buffer,
       contentType: String,
