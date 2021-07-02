@@ -16,6 +16,7 @@ const {
   photo,
   listRelated,
   listCategories,
+  listBySearch,
 } = require('../controllers/product');
 const { getUserById } = require('../controllers/user');
 
@@ -37,6 +38,7 @@ router.patch(
   isAdmin,
   updateProduct
 );
+router.post('/products/by/search', listBySearch);
 router.post('/products/create/:userId', isAuthenticated, isAdmin, create);
 
 router.param('userId', getUserById);
