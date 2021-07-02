@@ -3,6 +3,8 @@ import { getCategories } from 'api/category';
 import Layout from 'components/Layout';
 import Product from 'components/Product';
 import Checkbox from 'components/Checkbox';
+import RadioBox from 'components/RadioBox';
+import { prices } from 'utils';
 
 export default function Shop() {
   const [categories, setCategories] = useState([]);
@@ -46,6 +48,14 @@ export default function Shop() {
               handleFilters={(filters) => handleFilters(filters, 'category')}
             />
           </ul>
+
+          <h4 className=''>Filter by Prices</h4>
+          <div>
+            <RadioBox
+              prices={prices}
+              handleFilters={(filters) => handleFilters(filters, 'price')}
+            />
+          </div>
         </div>
         <div className='col-8'></div>
       </div>
