@@ -13,10 +13,16 @@ const {
   getProductById,
   deleteProduct,
   updateProduct,
+  photo,
+  listRelated,
 } = require('../controllers/product');
 const { getUserById } = require('../controllers/user');
 
 router.get('/products/:productId', read);
+router.get('/product/photo/:productId', photo);
+router.get('/products', list);
+router.get('/products/related/:productId', listRelated);
+
 router.delete(
   '/products/:productId/:userId',
   isAuthenticated,
@@ -29,7 +35,6 @@ router.patch(
   isAdmin,
   updateProduct
 );
-router.get('/products', list)
 router.post('/products/create/:userId', isAuthenticated, isAdmin, create);
 
 router.param('userId', getUserById);

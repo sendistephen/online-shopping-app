@@ -123,3 +123,32 @@ exports.list = (req, res) => {
       return res.json(foundProducts);
     });
 };
+
+/**
+ *This method will find products based on req product category
+ *Products that have the same category will be returned
+ *
+ */
+exports.listRelated = (req, res, next) => {
+  const limit = req.query.limit ? parseInt(req.query.limit) : 6;
+  // find all the products excluding itself
+  Product.find({
+    _id: { $ne: req.product },
+    category: req.product.category,
+  })
+    .limit(limit)
+    .populate('category', '_id name')
+    .exec((err, products) => {
+      if (err) {
+        return res.status(400).json({ error: 'Products not found' });
+      }
+      return res.json(products);
+    });
+};
+
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set('Content-Type', req.product.photo.contentType);
+    return res.send(req.product.photo.data);
+  }
+};
