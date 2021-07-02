@@ -15,3 +15,17 @@ export const createProduct = async (userId, token, product) => {
     console.log(error);
   }
 };
+
+export const fetchAllProducts = async (sortBy) => {
+  try {
+    const res = await fetch(
+      `${API}/products?sortBy=${sortBy}&order=desc&limit=6`,
+      {
+        method: 'GET',
+      }
+    );
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

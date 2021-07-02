@@ -30,7 +30,6 @@ const CreateProduct = () => {
     success,
     loading,
     formData,
-    redirectToProfile,
   } = values;
 
   //   load categories and initialize formData
@@ -85,7 +84,6 @@ const CreateProduct = () => {
           error: '',
           success: true,
           loading: false,
-          redirectToProfile: false,
           formData: '',
         });
       }

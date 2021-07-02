@@ -2,7 +2,6 @@ const { errorHandler } = require('../helpers/mongoError');
 
 const formidable = require('formidable');
 const fs = require('fs');
-const _ = require('lodash');
 
 const Product = require('../models/product');
 
@@ -99,4 +98,28 @@ exports.updateProduct = (req, res) => {
       return res.json({ result });
     });
   });
+};
+
+/**
+ * Sell || Arrival of products
+ * return product by sell: /products?sortBy=sold&order=desc&limit=6
+ * return products by arrival: /products?sortBy=createdAt&order=desc&limit=6
+ * return all products if no params sent
+ */
+exports.list = (req, res) => {
+  const order = req.query.order ? req.query.order : 'asc';
+  const sortBy = req.query.sortBy ? req.query.sortBy : '_id';
+  const limit = req.query.limit ? parseInt(req.query.limit) : 6;
+
+  Product.find()
+    .select('-photo')
+    .populate('category')
+    .sort([[sortBy, order]])
+    .limit(limit)
+    .exec((err, foundProducts) => {
+      if (err) {
+        return res.status(400).json({ error: 'Products not found' });
+      }
+      return res.json(foundProducts);
+    });
 };

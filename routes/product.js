@@ -9,6 +9,7 @@ const {
 const {
   create,
   read,
+  list,
   getProductById,
   deleteProduct,
   updateProduct,
@@ -28,6 +29,7 @@ router.patch(
   isAdmin,
   updateProduct
 );
+router.get('/products', list)
 router.post('/products/create/:userId', isAuthenticated, isAdmin, create);
 
 router.param('userId', getUserById);
