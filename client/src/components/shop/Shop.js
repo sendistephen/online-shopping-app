@@ -6,6 +6,9 @@ import Checkbox from 'components/Checkbox';
 
 export default function Shop() {
   const [categories, setCategories] = useState([]);
+  const [myFilters, setMyFilters] = useState({
+    filters: { category: [], price: [] },
+  });
   const [error, setError] = useState(false);
 
   //   load categories from the api
@@ -23,7 +26,9 @@ export default function Shop() {
   }, []);
 
   const handleFilters = (filters, filterBy) => {
-    console.log(filters, filterBy);
+    const newFilters = { ...myFilters };
+    newFilters.filters[filterBy] = filters;
+    setMyFilters(newFilters);
   };
 
   return (
@@ -42,7 +47,7 @@ export default function Shop() {
             />
           </ul>
         </div>
-        <div className='col-8'>Right</div>
+        <div className='col-8'></div>
       </div>
     </Layout>
   );
