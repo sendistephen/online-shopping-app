@@ -1,4 +1,5 @@
 import { AdminRoute, PrivateRoute } from 'components';
+import Shop from 'components/shop';
 import {
   AdminDashboard,
   CreateCategory,
@@ -15,6 +16,7 @@ export const Routes = () => {
   return (
     <Switch>
       <Route exact path='/' component={Home} />
+      <Route exact path='/shop' component={Shop} />
       <Route exact path='/signup' component={Signup} />
       <Route exact path='/signin' component={Signin} />
       <PrivateRoute exact path='/user/dashboard' component={Dashboard} />

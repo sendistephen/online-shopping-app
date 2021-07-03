@@ -8,8 +8,8 @@ const Product = ({ product }) => {
       <div className='card'>
         <div className='card-header'>{product.name}</div>
         <div className='card-body'>
-          <ProductImage item={product} url={product} />
-          <p className='card-text'>{product.description}</p>
+          <ProductImage item={product} url='product' />
+          <p className='card-text'>{product.description.substring(0, 50)}</p>
           <p className='card-text'>{product.price}</p>
           <Link to='/'>
             <button className='btn btn-info mt-2 mb-2'>View Product</button>
