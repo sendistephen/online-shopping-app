@@ -5,3 +5,4 @@ export { default as AdminRoute } from './AdminRoute';
 export { default as Product } from './Product';
 export { default as ProductImage } from './ProductImage';
 export { default as Checkbox } from './Checkbox';
+export { default as Search } from './Search';

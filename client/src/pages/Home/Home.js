@@ -1,5 +1,5 @@
 import { fetchAllProducts } from 'api/product';
-import { Layout, Product } from 'components';
+import { Layout, Product, Search } from 'components';
 import React, { useState, useEffect } from 'react';
 
 function Home() {
@@ -36,6 +36,7 @@ function Home() {
       title='Home Page'
       description='Shoppers online Ecommerce'
     >
+      <Search />
       <div class='row'>
         <h3 className='display-3 mb-4'>Best Sellers</h3>
         {productsBySell.map((product, index) => (

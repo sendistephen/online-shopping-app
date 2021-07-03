@@ -6,7 +6,6 @@ import Checkbox from 'components/Checkbox';
 import RadioBox from 'components/RadioBox';
 import { prices } from 'utils';
 import { fetchFilteredProducts } from 'api/product';
-import { filter } from 'lodash';
 
 export default function Shop() {
   const [categories, setCategories] = useState([]);
