@@ -1,3 +1,4 @@
+import queryString from 'query-string';
 import { API } from 'config';
 
 export const createProduct = async (userId, token, product) => {
@@ -40,6 +41,18 @@ export const fetchFilteredProducts = async (skip, limit, filters = {}) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const list = async (params) => {
+  try {
+    const query = queryString.stringify(params);
+    const res = await fetch(`${API}/products/search?${query}`, {
+      method: 'GET',
     });
     return res.json();
   } catch (error) {
