@@ -5,12 +5,17 @@ import Product from 'components/Product';
 import Checkbox from 'components/Checkbox';
 import RadioBox from 'components/RadioBox';
 import { prices } from 'utils';
+import { fetchFilteredProducts } from 'api/product';
+import { filter } from 'lodash';
 
 export default function Shop() {
   const [categories, setCategories] = useState([]);
   const [myFilters, setMyFilters] = useState({
     filters: { category: [], price: [] },
   });
+  const [limit, setLimit] = useState(6);
+  const [skip, setSkip] = useState(0);
+  const [filteredResults, setFilteredResults] = useState([]);
   const [error, setError] = useState(false);
 
   //   load categories from the api
@@ -23,8 +28,19 @@ export default function Shop() {
       }
     });
   };
+  const loadFilteredResults = (newFilters) => {
+    fetchFilteredProducts(skip, limit, newFilters).then((data) => {
+      if (data.error) {
+        setError(data.error);
+      } else {
+        setFilteredResults(data.data);
+      }
+    });
+  };
+
   useEffect(() => {
     fetchCategories();
+    loadFilteredResults(skip, limit, myFilters.filters);
   }, []);
 
   const handleFilters = (filters, filterBy) => {
@@ -35,8 +51,10 @@ export default function Shop() {
       let priceValues = handlePrice(filters);
       newFilters.filters[filterBy] = priceValues;
     }
+    loadFilteredResults(myFilters.filters);
     setMyFilters(newFilters);
   };
+
   const handlePrice = (value) => {
     const data = prices;
     let array = [];
@@ -73,7 +91,14 @@ export default function Shop() {
             />
           </div>
         </div>
-        <div className='col-8'>{JSON.stringify(myFilters)}</div>
+        <div className='col-8'>
+          <h4 className='mb-4'>Products</h4>
+          <div className='row'>
+            {filteredResults.map((product, i) => (
+              <Product key={i} product={product} />
+            ))}
+          </div>
+        </div>
       </div>
     </Layout>
   );
