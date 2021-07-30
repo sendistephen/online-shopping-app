@@ -5,6 +5,7 @@ import {
   CreateCategory,
   CreateProduct,
   Dashboard,
+  ProductDetails,
   Home,
   Signin,
   Signup,
@@ -31,6 +32,7 @@ export const Routes = () => {
         path='/admin/product/create'
         component={CreateProduct}
       />
+      <Route path='/products/:productId' component={ProductDetails}/>
     </Switch>
   );
 };

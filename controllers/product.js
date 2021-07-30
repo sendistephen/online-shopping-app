@@ -153,10 +153,9 @@ exports.listRelated = (req, res) => {
  */
 exports.listCategories = (req, res) => {
   Product.distinct('category', {}, (err, categories) => {
-    console.log('categories');
-    // if (err) {
-    //   return res.status(400).json({ error: 'Categories not found' });
-    // }
+    if (err) {
+      return res.status(400).json({ error: 'Categories not found' });
+    }
     return res.json(categories);
   });
 };
@@ -168,9 +167,6 @@ exports.listBySearch = (req, res) => {
   let skip = parseInt(req.body.skip);
   let findArgs = {};
 
-  // console.log(order, sortBy, limit, skip, req.body.filters);
-  // console.log("findArgs", findArgs);
-  console.log(req.body.filters);
   for (let key in req.body.filters) {
     if (req.body.filters[key].length > 0) {
       if (key === 'price') {
@@ -203,6 +199,29 @@ exports.listBySearch = (req, res) => {
         data,
       });
     });
+};
+
+exports.listSearch = (req, res) => {
+  // query object to hold search value and category value
+  const query = {};
+  // assign search value to query.name
+  if (req.query.search) {
+    query.name = { $regex: req.query.search, $options: 'i' };
+    // assign category value to query.category
+    if (req.query.category && req.query.category !== 'All') {
+      query.category = req.query.category;
+    }
+    // find the product based on query object with 2 properties
+    //search and category
+    Product.find(query, (err, products) => {
+      if (err) {
+        return res.status(400).json({
+          error: errorHandler(err),
+        });
+      }
+      res.json(products);
+    }).select('-photo');
+  }
 };
 
 exports.photo = (req, res, next) => {

@@ -17,7 +17,7 @@ export default function RadioBox({ prices, handleFilters }) {
             value={`${price._id}`}
             name={price}
             type='radio'
-            className='me-2 ms-4'
+            className='form-check-input'
           />
           <label htmlFor='name' className='form-check-label'>
             {price.name}

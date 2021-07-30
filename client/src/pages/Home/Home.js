@@ -37,17 +37,21 @@ function Home() {
       description='Shoppers online Ecommerce'
     >
       <Search />
+      <h3 className='mb-4'>Best Sellers</h3>
       <div class='row'>
-        <h3 className='display-3 mb-4'>Best Sellers</h3>
         {productsBySell.map((product, index) => (
-          <Product key={index} product={product} />
+          <div className='col-md-4 mb-3' key={index}>
+            <Product product={product} />
+          </div>
         ))}
       </div>
 
+      <h3 className='mb-4'>New Arrivals</h3>
       <div class='row'>
-        <h3 className='display-3 mb-4'>New Arrivals</h3>
         {productsByArrival.map((product, index) => (
-          <Product key={index} product={product} />
+          <div className='col-md-4 mb-3' key={index}>
+            <Product key={index} product={product} />
+          </div>
         ))}
       </div>
     </Layout>

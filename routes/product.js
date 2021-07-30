@@ -17,10 +17,12 @@ const {
   listRelated,
   listCategories,
   listBySearch,
+  listSearch,
 } = require('../controllers/product');
 const { getUserById } = require('../controllers/user');
 
 router.get('/products/categories', listCategories);
+router.get('/products/search', listSearch);
 router.get('/products/:productId', read);
 router.get('/product/photo/:productId', photo);
 router.get('/products', list);

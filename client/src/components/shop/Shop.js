@@ -99,8 +99,8 @@ export default function Shop() {
       className='container'
     >
       <div className='row'>
-        <div className='col-4'>
-          <h4 className=''>Filter by Categories</h4>
+        <div className='col-2'>
+          <p className='font-weight-bold'>Filter by Categories</p>
           <ul>
             <Checkbox
               categories={categories}
@@ -108,19 +108,21 @@ export default function Shop() {
             />
           </ul>
 
-          <h4 className=''>Filter by Prices</h4>
-          <div>
+          <p className='font-weight-bold'>Filter by Prices</p>
+          <div className='ml-4'>
             <RadioBox
               prices={prices}
               handleFilters={(filters) => handleFilters(filters, 'price')}
             />
           </div>
         </div>
-        <div className='col-8'>
+        <div className='col-10'>
           <h4 className='mb-4'>Products</h4>
           <div className='row'>
             {filteredResults.map((product, i) => (
-              <Product key={i} product={product} />
+              <div className='col-4 mb-3' key={i}>
+                <Product product={product} />
+              </div>
             ))}
           </div>
           <hr />
