@@ -1,9 +1,12 @@
 import ProductImage from 'components/ProductImage';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import moment from 'moment';
+import { addProductToCart } from 'components/Cart/CartHelpers';
 
 const Product = ({ product, showViewProductButton = true }) => {
+  const [redirect, setRedirect] = useState(false);
+
   const showViewButton = (showViewProductButton) => {
     return (
       showViewProductButton && (
@@ -22,10 +25,23 @@ const Product = ({ product, showViewProductButton = true }) => {
       <span className='badge badge-danger badge-pill'>Out of Stock</span>
     );
   };
+  const addToCart = () => {
+    addProductToCart(product, () => {
+      setRedirect(true);
+    });
+  };
+
+  const shouldRedirect = () => {
+    if (redirect) {
+      return <Redirect to='/cart' />;
+    }
+  };
+
   return (
     <div className='card'>
       <div className='card-header name'>{product.name}</div>
       <div className='card-body'>
+        {shouldRedirect(redirect)}
         <ProductImage item={product} url='product' />
         <p className='card-text lead'>{product.description.substring(0, 50)}</p>
         <p className='card-text black-10'>$ {product.price}</p>
@@ -39,7 +55,10 @@ const Product = ({ product, showViewProductButton = true }) => {
           Added {moment(product.createdAt).fromNow()}
         </p>
         <div>{showStock(product.quantity)}</div>
-        <button className='btn btn-sm btn-dark  mt-2 mb-2 mr-2'>
+        <button
+          className='btn btn-sm btn-dark  mt-2 mb-2 mr-2'
+          onClick={addToCart}
+        >
           Add to Cart
         </button>
         {showViewButton(showViewProductButton)}
