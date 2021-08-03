@@ -8,7 +8,9 @@ const Product = ({ product, showViewProductButton = true }) => {
     return (
       showViewProductButton && (
         <Link to={`/products/${product._id}`}>
-          <button className='btn btn-success  mt-2 mb-2'>View Details</button>
+          <button className='btn btn-success btn-sm  mt-2 mb-2'>
+            View Details
+          </button>
         </Link>
       )
     );
@@ -27,13 +29,12 @@ const Product = ({ product, showViewProductButton = true }) => {
         <ProductImage item={product} url='product' />
         <p className='card-text lead'>{product.description.substring(0, 50)}</p>
         <p className='card-text black-10'>$ {product.price}</p>
-        <div className='black-9'>
-          <span className='mr-2'>Category</span>
+        <div className=''>
+          <span className='mr-2 block'>Category</span>
           <span className='badge bg-light text-dark'>
             {product.category && product.category.name}
           </span>
         </div>
-        {showViewButton(showViewProductButton)}
         <p className='black-8 my-2'>
           Added {moment(product.createdAt).fromNow()}
         </p>
@@ -41,6 +42,7 @@ const Product = ({ product, showViewProductButton = true }) => {
         <button className='btn btn-sm btn-dark  mt-2 mb-2 mr-2'>
           Add to Cart
         </button>
+        {showViewButton(showViewProductButton)}
       </div>
     </div>
   );

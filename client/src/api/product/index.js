@@ -70,3 +70,14 @@ export const read = async (id) => {
     console.log(error);
   }
 };
+
+export const listRelated = async (productId) => {
+  try {
+    const res = await fetch(`${API}/products/related/${productId}`, {
+      method: 'GET',
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
