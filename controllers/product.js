@@ -6,14 +6,16 @@ const fs = require('fs');
 const Product = require('../models/product');
 
 exports.getProductById = (req, res, next, productId) => {
-  Product.findById(productId).exec((err, foundProduct) => {
-    if (err || !foundProduct) {
-      return res.status(400).json({ error: 'Product not found' });
-    }
-    // store product in req object
-    req.product = foundProduct;
-    next();
-  });
+  Product.findById(productId)
+    .populate('category')
+    .exec((err, foundProduct) => {
+      if (err || !foundProduct) {
+        return res.status(400).json({ error: 'Product not found' });
+      }
+      // store product in req object
+      req.product = foundProduct;
+      next();
+    });
 };
 
 exports.read = (req, res) => {
