@@ -1,4 +1,5 @@
 import { isAuthenticated, signout } from 'api/auth';
+import { itemTotal } from 'components/Cart/CartHelpers';
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { isActive } from 'utils';
@@ -41,6 +42,16 @@ function Navbar({ history }) {
                 style={isActive(history, '/shop')}
               >
                 Shop
+              </Link>
+            </li>
+            <li className='nav-item'>
+              <Link
+                className='nav-link active'
+                aria-current='page'
+                to='/cart'
+                style={isActive(history, '/cart')}
+              >
+                Cart <span class='badge bg-secondary'>{itemTotal()}</span>
               </Link>
             </li>
 

@@ -2,10 +2,21 @@ import ProductImage from 'components/ProductImage';
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import moment from 'moment';
-import { addProductToCart } from 'components/Cart/CartHelpers';
+import {
+  addProductToCart,
+  updateItem,
+  removeItem,
+} from 'components/Cart/CartHelpers';
 
-const Product = ({ product, showViewProductButton = true }) => {
+const Product = ({
+  product,
+  cartUpdate = false,
+  showViewProductButton = true,
+  showAddToCartButton = true,
+  showRemoveProductButton = false,
+}) => {
   const [redirect, setRedirect] = useState(false);
+  const [count, setCount] = useState(product.count);
 
   const showViewButton = (showViewProductButton) => {
     return (
@@ -15,6 +26,56 @@ const Product = ({ product, showViewProductButton = true }) => {
             View Details
           </button>
         </Link>
+      )
+    );
+  };
+  const showRemoveButton = (showRemoveProductButton) => {
+    return (
+      showRemoveProductButton && (
+        <button
+          onClick={() => removeItem(product._id)}
+          className='btn btn-danger btn-sm  mt-2 mb-2'
+        >
+          Remove Product
+        </button>
+      )
+    );
+  };
+  const showAddToCart = (showAddToCartButton) => {
+    return (
+      showAddToCartButton && (
+        <button
+          onClick={addToCart}
+          className='btn btn-sm btn-dark mt-2 mb-2 mr-2'
+        >
+          Add to cart{' '}
+        </button>
+      )
+    );
+  };
+  const handleChange = (productId) => (event) => {
+    setCount(event.target.value < 1 ? 1 : event.target.value);
+    if (event.target.value >= 1) {
+      updateItem(productId, event.target.value);
+    }
+  };
+  const showCardUpdateOptions = (cartUpdate) => {
+    return (
+      cartUpdate && (
+        <div>
+          <div className='input-group mb-3'>
+            <div className='input-group-prepend'>
+              <span className='input-group-text'>Adjust quantity</span>
+            </div>
+            <input
+              value={count}
+              onChange={handleChange(product._id)}
+              type='number'
+              className='form-control'
+              name=''
+            />
+          </div>
+        </div>
       )
     );
   };
@@ -55,13 +116,10 @@ const Product = ({ product, showViewProductButton = true }) => {
           Added {moment(product.createdAt).fromNow()}
         </p>
         <div>{showStock(product.quantity)}</div>
-        <button
-          className='btn btn-sm btn-dark  mt-2 mb-2 mr-2'
-          onClick={addToCart}
-        >
-          Add to Cart
-        </button>
+        {showAddToCart(showAddToCartButton)}
         {showViewButton(showViewProductButton)}
+        {showRemoveButton(showRemoveProductButton)}
+        {showCardUpdateOptions(cartUpdate)}
       </div>
     </div>
   );

@@ -9,6 +9,7 @@ import {
   Home,
   Signin,
   Signup,
+  Cart,
 } from 'pages';
 
 import { Switch, Route } from 'react-router-dom';
@@ -32,7 +33,8 @@ export const Routes = () => {
         path='/admin/product/create'
         component={CreateProduct}
       />
-      <Route path='/products/:productId' component={ProductDetails}/>
+      <Route path='/products/:productId' component={ProductDetails} />
+      <Route path='/cart' component={Cart} />
     </Switch>
   );
 };
