@@ -30,6 +30,7 @@ app.use('/api/v1/', require('./routes/auth'));
 app.use('/api/v1/', require('./routes/user'));
 app.use('/api/v1/', require('./routes/category'));
 app.use('/api/v1/', require('./routes/product'));
+app.use('/api/v1/', require('./routes/braintree'));
 
 const port = process.env.PORT;
 app.listen(port, () => {
