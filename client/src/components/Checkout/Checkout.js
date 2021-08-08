@@ -4,6 +4,7 @@ import DropIn from 'braintree-web-drop-in-react';
 import { isAuthenticated } from 'api/auth';
 import { Link } from 'react-router-dom';
 import { getBraintreeClientToken, processPayment } from '../../api/braintree';
+import { emptyCart } from 'components/Cart/CartHelpers';
 
 const Checkout = ({ products }) => {
   const [data, setData] = useState({
@@ -63,7 +64,7 @@ const Checkout = ({ products }) => {
     // send nonce to the server
     // nonce=data.instance.requestPaymentMethod()
     let nonce;
-    let getNonce = data.instance
+    data.instance
       .requestPaymentMethod()
       .then((data) => {
         console.log(data);
@@ -77,6 +78,9 @@ const Checkout = ({ products }) => {
           .then((res) => {
             setData({ ...data, success: res.success });
             // empty cart
+            emptyCart(() => {
+              console.log('Payment complete. Empty cart');
+            });
             // create order
           })
           .catch((error) => console.log(error));
