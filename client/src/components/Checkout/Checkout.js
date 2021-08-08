@@ -13,6 +13,7 @@ const Checkout = ({ products }) => {
     error: '',
     instance: {},
     address: '',
+    loading: false,
   });
 
   const userId = isAuthenticated() && isAuthenticated().foundUser._id;
@@ -50,7 +51,12 @@ const Checkout = ({ products }) => {
       {data.clientToken !== null && products.length > 0 ? (
         <div>
           <DropIn
-            options={{ authorization: data.clientToken }}
+            options={{
+              authorization: data.clientToken,
+              paypal: {
+                flow: 'vault',
+              },
+            }}
             onInstance={(instance) => (data.instance = instance)}
           />
           <button onClick={buy} className='btn btn-sm btn-danger'>
@@ -61,6 +67,7 @@ const Checkout = ({ products }) => {
     </div>
   );
   const buy = () => {
+    setData({ loading: true });
     // send nonce to the server
     // nonce=data.instance.requestPaymentMethod()
     let nonce;
@@ -80,16 +87,20 @@ const Checkout = ({ products }) => {
             // empty cart
             emptyCart(() => {
               console.log('Payment complete. Empty cart');
+              setData({ loading: false });
             });
             // create order
           })
-          .catch((error) => console.log(error));
+          .catch((err) => {
+            setData({ loading: false, error: err });
+          });
       })
       .catch((error) => {
-        console.log('dropin error', error);
         setData({ ...data, error: error.message });
       });
   };
+  const showLoading = (loading) =>
+    loading && <p className='lead'>Loading...</p>;
   const showError = (error) => (
     <div
       className='alert alert-danger'
@@ -109,6 +120,7 @@ const Checkout = ({ products }) => {
   return (
     <div>
       <p className='lead'>Total: ${getTotal()}</p>
+      {showLoading(data.loading)}
       {showError(data.error)}
       {showMsg(data.success)}
       {showCheckout()}
