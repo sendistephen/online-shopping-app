@@ -16,3 +16,19 @@ export const createOrder = async (userId, token, createOrderData) => {
     console.log(error);
   }
 };
+// Admin role
+export const listOrders = async (userId, token) => {
+  try {
+    const res = await fetch(`${API}/order/list/${userId}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { isAuthenticated, isAdmin } = require('../controllers/auth');
 const { getUserById, addOrderToUserHistory } = require('../controllers/user');
-const { create } = require('../controllers/order.js');
+const { create, listOrders } = require('../controllers/order.js');
 const { decreaseQuantity } = require('../controllers/product');
 
 router.post(
