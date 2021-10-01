@@ -51,7 +51,7 @@ function Navbar({ history }) {
                 to='/cart'
                 style={isActive(history, '/cart')}
               >
-                Cart <span class='badge bg-secondary'>{itemTotal()}</span>
+                Cart <span className='badge bg-secondary'>{itemTotal()}</span>
               </Link>
             </li>
 

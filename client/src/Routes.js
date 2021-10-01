@@ -10,6 +10,7 @@ import {
   Signin,
   Signup,
   Cart,
+  Orders,
 } from 'pages';
 
 import { Switch, Route } from 'react-router-dom';
@@ -33,6 +34,7 @@ export const Routes = () => {
         path='/admin/product/create'
         component={CreateProduct}
       />
+      <AdminRoute exact path='/admin/orders' component={Orders} />
       <Route path='/products/:productId' component={ProductDetails} />
       <Route path='/cart' component={Cart} />
     </Switch>
