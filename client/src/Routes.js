@@ -25,6 +25,9 @@ export const Routes = () => {
       <Route exact path='/signin' component={Signin} />
       <PrivateRoute exact path='/user/dashboard' component={Dashboard} />
       <PrivateRoute exact path='/admin/dashboard' component={AdminDashboard} />
+      <Route exact path='/products/:productId' component={ProductDetails} />
+      <Route exact path='/cart' component={Cart} />
+
       <AdminRoute
         exact
         path='/admin/category/create'
@@ -36,8 +39,6 @@ export const Routes = () => {
         component={CreateProduct}
       />
       <AdminRoute exact path='/admin/orders' component={Orders} />
-      <Route path='/products/:productId' component={ProductDetails} />
-      <Route path='/cart' component={Cart} />
       <PrivateRoute exact path='/profile/:userId' component={Profile} />
     </Switch>
   );

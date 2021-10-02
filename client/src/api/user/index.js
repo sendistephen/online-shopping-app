@@ -40,7 +40,7 @@ export const updateUser = (user, next) => {
   try {
     if (typeof window !== 'undefined') {
       if (localStorage.getItem('jwt')) {
-        let auth = localStorage.getItem('jwt');
+        let auth = JSON.parse(localStorage.getItem('jwt'));
         auth.foundUser = user;
         localStorage.setItem('jwt', JSON.stringify(auth));
         next();
