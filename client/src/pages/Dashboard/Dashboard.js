@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const {
-    foundUser: { name, email, role },
+    foundUser: { _id, name, email, role },
   } = isAuthenticated();
 
   const userLinks = () => (
@@ -18,7 +18,7 @@ const Dashboard = () => {
           </Link>
         </li>
         <li className='list-group-item'>
-          <Link className='nav-link' to='/profile/update'>
+          <Link className='nav-link' to={`/profile/${_id}`}>
             Update Profile
           </Link>
         </li>

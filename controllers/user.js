@@ -13,6 +13,30 @@ exports.getUserById = (req, res, next, id) => {
   });
 };
 
+// get user info
+exports.read = (req, res) => {
+  req.profile.hashed_password = undefined;
+  req.profile.salt = undefined;
+  return res.json(req.profile);
+};
+
+// update user profile
+exports.update = (req, res) => {
+  User.findOneAndUpdate(
+    { _id: req.profile._id },
+    { $set: req.body },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        return res.status(400).json({ error: 'Opps! Not authorized!' });
+      }
+      user.hashed_password = undefined;
+      user.salt = undefined;
+      return res.json(user);
+    }
+  );
+};
+
 exports.addOrderToUserHistory = (req, res, next) => {
   let history = [];
   req.body.order.products.forEach((item) => {
