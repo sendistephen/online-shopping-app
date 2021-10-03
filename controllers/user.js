@@ -1,4 +1,6 @@
 const User = require('../models/user');
+const { Order } = require('../models/order');
+const { errorHandler } = require('../helpers/mongoError');
 
 exports.getUserById = (req, res, next, id) => {
   User.findById(id).exec((err, foundUser) => {
@@ -50,12 +52,12 @@ exports.addOrderToUserHistory = (req, res, next) => {
       amount: req.body.order.amount,
     });
   });
-  User.findByIdAndUpdate(
+  User.findOneAndUpdate(
     { _id: req.profile._id },
     { $push: { history: history } },
     { new: true },
     (err, data) => {
-      if (error) {
+      if (err) {
         return res
           .status(400)
           .json({ error: 'Could not update user purchase history' });
@@ -63,4 +65,17 @@ exports.addOrderToUserHistory = (req, res, next) => {
       next();
     }
   );
+};
+
+exports.purchaseHistory = (req, res) => {
+  Order.find({ user: req.profile._id })
+    .populate('products')
+    .populate('user', '_id name')
+    .sort('-created')
+    .exec((err, orders) => {
+      if (err) {
+        return res.status(400).json({ error: errorHandler });
+      }
+      return res.json(orders);
+    });
 };
