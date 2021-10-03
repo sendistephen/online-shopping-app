@@ -77,7 +77,6 @@ exports.updateProduct = (req, res) => {
     if (err) {
       return res.status(400).json({ error: 'Image could not be uploaded' });
     }
-
     // update product
     let product = req.product;
     product.set(fields);
