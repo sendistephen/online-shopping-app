@@ -12,6 +12,7 @@ import {
   Cart,
   Orders,
   Profile,
+  ManageProducts,
 } from 'pages';
 
 import { Switch, Route } from 'react-router-dom';
@@ -38,6 +39,7 @@ export const Routes = () => {
         path='/admin/product/create'
         component={CreateProduct}
       />
+      <AdminRoute exact path='/admin/products' component={ManageProducts} />
       <AdminRoute exact path='/admin/orders' component={Orders} />
       <PrivateRoute exact path='/profile/:userId' component={Profile} />
     </Switch>

@@ -60,6 +60,49 @@ export const list = async (params) => {
   }
 };
 
+export const listRelated = async (productId) => {
+  try {
+    const res = await fetch(`${API}/products/related/${productId}`, {
+      method: 'GET',
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// ADMIN PRODUCT CRUD Operations
+
+// get all products
+export const getProducts = async () => {
+  try {
+    const res = await fetch(`${API}/products`, {
+      method: 'GET',
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// Delete product
+export const deleteProduct = async (productId, userId, token) => {
+  try {
+    const res = await fetch(`${API}/products/${productId}/${userId}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// get single product
 export const read = async (id) => {
   try {
     const res = await fetch(`${API}/products/${id}`, {
@@ -70,11 +113,18 @@ export const read = async (id) => {
     console.log(error);
   }
 };
-
-export const listRelated = async (productId) => {
+// update product
+export const updateProduct = async (productId, userId, token, product) => {
   try {
-    const res = await fetch(`${API}/products/related/${productId}`, {
-      method: 'GET',
+    const res = await fetch(`${API}/products/${productId}/${userId}`, {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      // product is form data
+      body: product,
     });
     return res.json();
   } catch (error) {
