@@ -117,10 +117,8 @@ export const read = async (id) => {
 export const updateProduct = async (productId, userId, token, product) => {
   try {
     const res = await fetch(`${API}/products/${productId}/${userId}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       // product is form data

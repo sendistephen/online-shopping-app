@@ -13,6 +13,7 @@ import {
   Orders,
   Profile,
   ManageProducts,
+  UpdateProduct,
 } from 'pages';
 
 import { Switch, Route } from 'react-router-dom';
@@ -40,6 +41,11 @@ export const Routes = () => {
         component={CreateProduct}
       />
       <AdminRoute exact path='/admin/products' component={ManageProducts} />
+      <AdminRoute
+        exact
+        path='/admin/product/update/:productId'
+        component={UpdateProduct}
+      />
       <AdminRoute exact path='/admin/orders' component={Orders} />
       <PrivateRoute exact path='/profile/:userId' component={Profile} />
     </Switch>
