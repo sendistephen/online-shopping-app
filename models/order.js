@@ -16,8 +16,14 @@ const CartItem = mongoose.model('CartItem', CartItemSchema);
 
 const OrderSchema = new mongoose.Schema(
   {
-    products: [CartItemSchema],
-    transaction_id: { type: String },
+    products: [
+      {
+        type: ObjectId,
+        required: true,
+        ref: 'Product',
+      },
+    ],
+    transaction_id: {},
     amount: { type: Number },
     address: String,
     status: {

@@ -50,3 +50,20 @@ export const updateUser = (user, next) => {
     console.log(error);
   }
 };
+
+// get purchase history
+export const getPurchaseHistory = async (userId, token) => {
+  try {
+    const res = await fetch(`${API}/orders/by/user/${userId}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
