@@ -1,8 +1,6 @@
-import { API } from 'config';
-
 export const getBraintreeClientToken = async (userId, token) => {
   try {
-    const res = await fetch(`${API}/braintree/get-token/${userId}`, {
+    const res = await fetch(`/braintree/get-token/${userId}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -18,7 +16,7 @@ export const getBraintreeClientToken = async (userId, token) => {
 
 export const processPayment = async (userId, token, paymentData) => {
   try {
-    const res = await fetch(`${API}/braintree/payment/${userId}`, {
+    const res = await fetch(`/braintree/payment/${userId}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

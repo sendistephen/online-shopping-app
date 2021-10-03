@@ -1,8 +1,6 @@
-import { API } from 'config';
-
 export const signup = async (user) => {
   try {
-    const res = await fetch(`${API}/signup`, {
+    const res = await fetch('/signup', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -18,7 +16,7 @@ export const signup = async (user) => {
 
 export const signin = async (user) => {
   try {
-    const res = await fetch(`${API}/signin`, {
+    const res = await fetch('/signin', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -47,7 +45,7 @@ export const signout = async (next) => {
     next();
     // make request to the api
     try {
-      const res = await fetch(`${API}/signout`, {
+      const res = await fetch('/signout', {
         method: 'GET',
       });
       if (res) {

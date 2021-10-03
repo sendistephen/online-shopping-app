@@ -1,9 +1,7 @@
-import { API } from 'config';
-
 // get user info
 export const read = async (userId, token) => {
   try {
-    const res = await fetch(`${API}/user/${userId}`, {
+    const res = await fetch(`/user/${userId}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -20,7 +18,7 @@ export const read = async (userId, token) => {
 // update user info
 export const update = async (userId, token, user) => {
   try {
-    const res = await fetch(`${API}/user/${userId}`, {
+    const res = await fetch(`/user/${userId}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
@@ -54,7 +52,7 @@ export const updateUser = (user, next) => {
 // get purchase history
 export const getPurchaseHistory = async (userId, token) => {
   try {
-    const res = await fetch(`${API}/orders/by/user/${userId}`, {
+    const res = await fetch(`/orders/by/user/${userId}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
