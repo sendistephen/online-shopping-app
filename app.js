@@ -4,14 +4,14 @@ const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
 const expressValidator = require('express-validator');
-
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
 
 // database config
 mongoose
-  .connect(process.env.DATABASE, {
+  .connect(process.env.DATABASE_URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
@@ -33,6 +33,15 @@ app.use('/api/v1/', require('./routes/category'));
 app.use('/api/v1/', require('./routes/product'));
 app.use('/api/v1/', require('./routes/braintree'));
 app.use('/api/v1/', require('./routes/order'));
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/client/build')));
+  app.get('*', (req, res) => {
+    return res.sendFile(
+      path.resolve(__dirname, 'client', 'build', 'index.html')
+    );
+  });
+}
 
 const port = process.env.PORT;
 app.listen(port, () => {
