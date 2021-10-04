@@ -2,7 +2,7 @@
 node_modules
 
 # production
-/client/build
+/frontend/build
 
 # misc
 .DS_Store
