@@ -34,11 +34,12 @@ app.use('/api/v1/', require('./routes/product'));
 app.use('/api/v1/', require('./routes/braintree'));
 app.use('/api/v1/', require('./routes/order'));
 
+const __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/client/build')));
+  app.use(express.static(path.join(__dirname, '/frontend/build')));
   app.get('*', (req, res) => {
     return res.sendFile(
-      path.resolve(__dirname, 'client', 'build', 'index.html')
+      path.resolve(__dirname, 'frontend', 'build', 'index.html')
     );
   });
 }
