@@ -1,8 +1,9 @@
+import { API } from 'config';
 import queryString from 'query-string';
 
 export const createProduct = async (userId, token, product) => {
   try {
-    const res = await fetch(`/products/create/${userId}`, {
+    const res = await fetch(`${API}/products/create/${userId}`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -18,9 +19,12 @@ export const createProduct = async (userId, token, product) => {
 
 export const fetchAllProducts = async (sortBy) => {
   try {
-    const res = await fetch(`/products?sortBy=${sortBy}&order=desc&limit=6`, {
-      method: 'GET',
-    });
+    const res = await fetch(
+      `${API}/products?sortBy=${sortBy}&order=desc&limit=6`,
+      {
+        method: 'GET',
+      }
+    );
     return res.json();
   } catch (error) {
     console.log(error);
@@ -30,7 +34,7 @@ export const fetchAllProducts = async (sortBy) => {
 export const fetchFilteredProducts = async (skip, limit, filters = {}) => {
   const data = { skip, limit, filters };
   try {
-    const res = await fetch(`/products/by/search`, {
+    const res = await fetch(`${API}/products/by/search`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -47,7 +51,7 @@ export const fetchFilteredProducts = async (skip, limit, filters = {}) => {
 export const list = async (params) => {
   try {
     const query = queryString.stringify(params);
-    const res = await fetch(`/products/search?${query}`, {
+    const res = await fetch(`${API}/products/search?${query}`, {
       method: 'GET',
     });
     return res.json();
@@ -58,7 +62,7 @@ export const list = async (params) => {
 
 export const listRelated = async (productId) => {
   try {
-    const res = await fetch(`/products/related/${productId}`, {
+    const res = await fetch(`${API}/products/related/${productId}`, {
       method: 'GET',
     });
     return res.json();
@@ -72,7 +76,7 @@ export const listRelated = async (productId) => {
 // get all products
 export const getProducts = async () => {
   try {
-    const res = await fetch('/products?limit=undefined', {
+    const res = await fetch('${API}/products?limit=undefined', {
       method: 'GET',
     });
     return res.json();
@@ -84,7 +88,7 @@ export const getProducts = async () => {
 // Delete product
 export const deleteProduct = async (productId, userId, token) => {
   try {
-    const res = await fetch(`/products/${productId}/${userId}`, {
+    const res = await fetch(`${API}/products/${productId}/${userId}`, {
       method: 'DELETE',
       headers: {
         Accept: 'application/json',
@@ -101,7 +105,7 @@ export const deleteProduct = async (productId, userId, token) => {
 // get single product
 export const read = async (id) => {
   try {
-    const res = await fetch(`/products/${id}`, {
+    const res = await fetch(`${API}/products/${id}`, {
       method: 'GET',
     });
     return res.json();
@@ -112,7 +116,7 @@ export const read = async (id) => {
 // update product
 export const updateProduct = async (productId, userId, token, product) => {
   try {
-    const res = await fetch(`/products/${productId}/${userId}`, {
+    const res = await fetch(`${API}/products/${productId}/${userId}`, {
       method: 'PATCH',
       headers: {
         Authorization: `Bearer ${token}`,

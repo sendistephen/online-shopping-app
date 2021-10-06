@@ -1,6 +1,8 @@
+import { API } from "config";
+
 export const createCategory = async (userId, token, category) => {
   try {
-    const res = await fetch(`/category/create/${userId}`, {
+    const res = await fetch(`${API}/category/create/${userId}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -18,7 +20,7 @@ export const createCategory = async (userId, token, category) => {
 
 export const getCategories = async () => {
   try {
-    const res = await fetch('/categories', { method: 'GET' });
+    const res = await fetch(`${API}/categories`, { method: 'GET' });
     return res.json();
   } catch (error) {
     console.log(error);

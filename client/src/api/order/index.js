@@ -1,6 +1,8 @@
+import { API } from "config";
+
 export const createOrder = async (userId, token, createOrderData) => {
   try {
-    const res = await fetch(`/order/create/${userId}`, {
+    const res = await fetch(`${API}/order/create/${userId}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -17,7 +19,7 @@ export const createOrder = async (userId, token, createOrderData) => {
 // Admin role
 export const listOrders = async (userId, token) => {
   try {
-    const res = await fetch(`/order/list/${userId}`, {
+    const res = await fetch(`${API}/order/list/${userId}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -32,7 +34,7 @@ export const listOrders = async (userId, token) => {
 };
 export const getPaymentStatus = async (userId, token) => {
   try {
-    const res = await fetch(`/order/status-values/${userId}`, {
+    const res = await fetch(`${API}/order/status-values/${userId}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -48,7 +50,7 @@ export const getPaymentStatus = async (userId, token) => {
 
 export const updateOrderStatus = async (userId, token, orderId, status) => {
   try {
-    const res = await fetch(`/order/${orderId}/status/${userId}`, {
+    const res = await fetch(`${API}/order/${orderId}/status/${userId}`, {
       method: 'PUT',
       headers: {
         Accept: 'application/json',
